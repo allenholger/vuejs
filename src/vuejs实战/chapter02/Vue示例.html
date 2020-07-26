@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue示例</title>
+</head>
+<body>
+<script src="../../../js/vue.js"></script>
+<div id="app">
+    <h1>{{message}}</h1>
+    <label for="name">
+        <input type="text" placeholder="你的名字" id="name" v-bind:value="name" v-on:keyup="keyEnter($event)">
+        <p>你好，{{name}}</p>
+    </label>
+
+</div>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            message: "vue示例",
+            name: ''
+        },
+        methods: {
+            keyEnter: function(event){
+                this.name = event.target.value
+            }
+        },
+        create: function(){
+            console.log(message);
+        },
+        mounted: function () {
+            console.log(this.$el)
+        },
+        destroyed: function () {
+            console.log('vue实例被销毁');
+        },
+        beforeDestory: function () {
+            console.log('vue实例被销毁前');
+        }
+    })
+</script>
+</body>
+</html>

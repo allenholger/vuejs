@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车实例</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <script src="../../../js/vue.js"></script>
+    <div id="app">
+        <div v-if="list.length">
+            <table>
+                <thead>
+                <tr>
+                    <td></td>
+                    <td>商品名称</td>
+                    <td>商品单价</td>
+                    <td>购买数量</td>
+                    <td>操作</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(item, index) in list">
+                    <td>{{index + 1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.price |formatPrice}}</td>
+                    <td>
+                        <button v-on:click="subtract(index)" v-bind:disabled="list[index].count < 1">-</button>
+                        {{item.count}}
+                        <button v-on:click="add(index)">+</button>
+                    </td>
+                    <td><button v-on:click="remove(index)">移除</button></td>
+                </tr>
+                </tbody>
+            </table>
+            <h1>商品总价为：{{totalPrice| formatPrice}}</h1>
+        </div>
+        <div v-else>
+            <h1>购物车为空</h1>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

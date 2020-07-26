@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实时显示当前时间，每秒更新</title>
+</head>
+<body>
+    <script src="../../../js/vue.js"></script>
+    <div id="app">
+        <h1>{{message}}</h1>
+        <h2>当前时间为: {{date|formateDate}}</h2>
+
+    </div>
+    <script>
+        // Vue.filter({
+        //     formateDate: function (value) {
+        //         const d = new Date(value)
+        //         const year = d.getFullYear()
+        //         let month = d.getMonth() + 1
+        //         if(month > 0 && month < 10){
+        //             month = '0' + month
+        //         }
+        //         let day = d.getDay()
+        //         if(day > 0 && day < 10){
+        //             day = '0' + day
+        //         }
+        //         let hour = d.getHours()
+        //         if(hour > 0 && hour < 10){
+        //             hour = '0' + hour
+        //         }
+        //         let minute = d.getMinutes()
+        //         if(minute > 0 && minute < 10){
+        //             minute = '0' + minute
+        //         }
+        //         let second = d.getSeconds()
+        //         if(second > 0 && second < 10){
+        //             second = '0' + second
+        //         }
+        //         return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second
+        //     }
+        // })
+        const app = new Vue({
+            el: "#app",
+            data: {
+                message: "实时显示当前时间，每秒更新",
+                date: new Date()
+            },
+            filters: {
+                formateDate: function (value) {
+                    const d = new Date(value)
+                    const year = d.getFullYear()
+                    let month = d.getMonth() + 1
+                    if(month > 0 && month < 10){
+                        month = '0' + month
+                    }
+                    let day = d.getDate()
+                    if(day > 0 && day < 10){
+                        day = '0' + day
+                    }
+                    let hour = d.getHours()
+                    if(hour > 0 && hour < 10){
+                        hour = '0' + hour
+                    }
+                    let minute = d.getMinutes()
+                    if(minute > 0 && minute < 10){
+                        minute = '0' + minute
+                    }
+                    let second = d.getSeconds()
+                    if(second > 0 && second < 10){
+                        second = '0' + second
+                    }
+                    return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second
+                }
+            },
+            mounted: function () {
+                const _this = this
+                this.timer = setInterval(function () {
+                    _this.date = new Date()
+                }, 1000)
+            },
+            beforeDestory: function () {
+                if(this.timer){
+                    clearInterval(this.timer)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
